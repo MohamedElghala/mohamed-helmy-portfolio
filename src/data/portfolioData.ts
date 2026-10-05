@@ -100,7 +100,7 @@ export const PORTFOLIO_DATA = {
       liveUrl: "https://tourvanto.vercel.app",
       badge: "Live Platform",
       status: "live",
-      coverImage: "/images/tourvanto_official.jpg",
+      coverImage: "/images/tourvanto_luxury_yacht.jpg",
       brandColor: "#0D9488",
     },
     {
@@ -114,7 +114,7 @@ export const PORTFOLIO_DATA = {
       techStack: ["Next.js 15", "PostgreSQL", "Prisma", "Paymob API", "Dynamic PDF-Lib"],
       badge: "Coming Soon • In Development",
       status: "coming-soon",
-      coverImage: "/images/raseen_official.jpg",
+      coverImage: "/images/raseen_content_showcase.jpg",
       brandColor: "#F59E0B",
     },
     {

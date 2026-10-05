@@ -12,6 +12,8 @@ export interface Project {
   featured?: boolean;
   status?: "live" | "coming-soon";
   aspectRatio?: string;
+  coverImage?: string;
+  brandColor?: string;
 }
 
 export interface Service {
@@ -53,6 +55,8 @@ export const PORTFOLIO_DATA = {
       badge: "Featured Flagship • Live Vercel",
       featured: true,
       status: "live",
+      coverImage: "/images/brasil_chic.jpg",
+      brandColor: "#C26D53",
     },
     {
       id: "aura-glow-up",
@@ -66,6 +70,8 @@ export const PORTFOLIO_DATA = {
       liveUrl: "https://auraglowup.online",
       badge: "Live Omnichannel",
       status: "live",
+      coverImage: "/images/aura.jpg",
+      brandColor: "#F472B6",
     },
     {
       id: "solvo-auto",
@@ -79,6 +85,8 @@ export const PORTFOLIO_DATA = {
       liveUrl: "https://solvo-store.vercel.app",
       badge: "Live Production • 3D WebGL",
       status: "live",
+      coverImage: "/images/solvo.jpg",
+      brandColor: "#F97316",
     },
     {
       id: "tourvanto",
@@ -92,6 +100,8 @@ export const PORTFOLIO_DATA = {
       liveUrl: "https://tourvanto.vercel.app",
       badge: "Live Platform",
       status: "live",
+      coverImage: "/images/tourvanto_cover.jpg",
+      brandColor: "#0D9488",
     },
     {
       id: "raseen",
@@ -104,6 +114,8 @@ export const PORTFOLIO_DATA = {
       techStack: ["Next.js 15", "PostgreSQL", "Prisma", "Paymob API", "Dynamic PDF-Lib"],
       badge: "Coming Soon • In Development",
       status: "coming-soon",
+      coverImage: "/images/raseen_cover.jpg",
+      brandColor: "#10B981",
     },
     {
       id: "ai-content-engine",
@@ -116,6 +128,8 @@ export const PORTFOLIO_DATA = {
       techStack: ["Python", "FFmpeg", "ElevenLabs API", "Gemini 2.5 Flash", "Telegram Bot API"],
       badge: "Automated Production",
       status: "live",
+      coverImage: "/images/aura.jpg",
+      brandColor: "#A855F7",
     },
   ] as Project[],
 

@@ -114,7 +114,7 @@ export const PORTFOLIO_DATA = {
       techStack: ["Next.js 15", "PostgreSQL", "Prisma", "Paymob API", "Dynamic PDF-Lib"],
       badge: "Coming Soon • In Development",
       status: "coming-soon",
-      coverImage: "/images/raseen_content_showcase.jpg",
+      coverImage: "/images/raseen_platform_hero.jpg",
       brandColor: "#F59E0B",
     },
     {

@@ -101,7 +101,7 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
               Architecture
             </span>
             <span className="block text-sm font-bold text-bone">Next.js 14 App Router</span>
-            <span className="block text-[11px] text-bone-dim font-mono">TypeScript & APIs</span>
+            <span className="block text-[11px] text-bone-dim font-mono">Ultra-Fast & Stable</span>
           </div>
 
           <div className="p-4 rounded-xl bg-noir-850/50 border border-noir-700/40">

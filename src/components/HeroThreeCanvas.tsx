@@ -137,6 +137,7 @@ export default function HeroThreeCanvas({ className = "" }: HeroThreeCanvasProps
     let dragVelocityY = 0;
 
     const handlePointerDown = (e: PointerEvent) => {
+      // On mobile touch, don't capture if user is likely scrolling vertically
       isDragging = true;
       prevPointerX = e.clientX;
       prevPointerY = e.clientY;
@@ -145,13 +146,20 @@ export default function HeroThreeCanvas({ className = "" }: HeroThreeCanvasProps
     };
 
     const handlePointerMove = (e: PointerEvent) => {
-      // Update normalized mouse coordinates for parallax
+      // Update normalized coordinates for parallax
       targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
       targetMouseY = -(e.clientY / window.innerHeight) * 2 - 1;
 
       if (isDragging) {
         const deltaX = e.clientX - prevPointerX;
         const deltaY = e.clientY - prevPointerY;
+
+        // If on touch device and vertical swipe is dominant, release dragging so page can scroll smoothly
+        if (e.pointerType === "touch" && Math.abs(deltaY) > Math.abs(deltaX) * 1.5) {
+          isDragging = false;
+          return;
+        }
+
         prevPointerX = e.clientX;
         prevPointerY = e.clientY;
 
@@ -167,8 +175,8 @@ export default function HeroThreeCanvas({ className = "" }: HeroThreeCanvasProps
       isDragging = false;
     };
 
-    window.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("pointermove", handlePointerMove);
+    canvas.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
     window.addEventListener("pointerup", handlePointerUp);
 
     // 7. Responsive Resize Handler
@@ -234,7 +242,7 @@ export default function HeroThreeCanvas({ className = "" }: HeroThreeCanvasProps
     return () => {
       cancelAnimationFrame(animationFrameId);
       observer.disconnect();
-      window.removeEventListener("pointerdown", handlePointerDown);
+      canvas.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerup", handlePointerUp);
       window.removeEventListener("resize", handleResize);

@@ -16,13 +16,20 @@ interface PortalHeroProps {
 
 export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
   const [portalOpen, setPortalOpen] = useState(false);
+  const [portalDone, setPortalDone] = useState(false);
 
   useEffect(() => {
     // Trigger portal parting animation smoothly on mount
     const timer = setTimeout(() => {
       setPortalOpen(true);
     }, 350);
-    return () => clearTimeout(timer);
+    const doneTimer = setTimeout(() => {
+      setPortalDone(true);
+    }, 1400);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(doneTimer);
+    };
   }, []);
 
   return (
@@ -43,22 +50,24 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
       <div className="absolute inset-x-8 top-24 bottom-12 border border-noir-700/30 rounded-2xl pointer-events-none hidden md:block z-10" />
 
       {/* PORTAL SHUTTERS (Superdesign #1: Two panels that part outward) */}
-      <div
-        className={`absolute inset-0 z-30 pointer-events-none transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          portalOpen ? "opacity-0 scale-105" : "opacity-100 scale-100"
-        }`}
-      >
-        <div className="absolute inset-x-0 top-0 h-1/2 bg-noir-950 border-b border-noir-700/50 flex items-end justify-center pb-6">
-          <span className="font-mono text-xs text-champagne/60 tracking-[0.3em] uppercase">
-            Entering The Portfolio
-          </span>
+      {!portalDone && (
+        <div
+          className={`absolute inset-0 z-30 pointer-events-none transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            portalOpen ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"
+          }`}
+        >
+          <div className="absolute inset-x-0 top-0 h-1/2 bg-noir-950 border-b border-noir-700/50 flex items-end justify-center pb-6">
+            <span className="font-mono text-xs text-champagne/60 tracking-[0.3em] uppercase">
+              Entering The Portfolio
+            </span>
+          </div>
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-noir-950 border-t border-noir-700/50 flex items-start justify-center pt-6">
+            <span className="font-mono text-xs text-bone-dim tracking-[0.3em] uppercase">
+              Mohamed Helmy
+            </span>
+          </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-noir-950 border-t border-noir-700/50 flex items-start justify-center pt-6">
-          <span className="font-mono text-xs text-bone-dim tracking-[0.3em] uppercase">
-            Mohamed Helmy
-          </span>
-        </div>
-      </div>
+      )}
 
       {/* Hero Content Container */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center pointer-events-auto">

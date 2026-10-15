@@ -14,6 +14,20 @@ body {
   overflow-x: hidden;
 }
 
+/* Arabic RTL Typography Tuning */
+[dir="rtl"] {
+  font-family: var(--font-cairo), system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+[dir="rtl"] .font-serif {
+  font-family: var(--font-cairo), Georgia, serif;
+}
+
+[dir="rtl"] .font-mono {
+  font-family: var(--font-cairo), var(--font-mono), monospace;
+}
+
 /* Subtle Film Grain Noise */
 .film-grain {
   position: fixed;

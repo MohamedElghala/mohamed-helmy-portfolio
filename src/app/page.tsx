@@ -8,11 +8,13 @@ import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 import WhatsAppDrawerModal from "@/components/WhatsAppDrawerModal";
+import BlueprintModal from "@/components/BlueprintModal";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 export default function Home() {
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string | undefined>(undefined);
+  const [blueprintOpen, setBlueprintOpen] = useState(false);
 
   const handleOpenConsultation = (serviceName?: string) => {
     setSelectedService(serviceName);
@@ -26,16 +28,17 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-noir-950 text-bone selection:bg-champagne selection:text-noir-950 relative">
-      {/* Global Navigation */}
+      {/* Global Navigation with Bilingual Switcher */}
       <Navbar onOpenConsultation={handleOpenConsultation} />
 
       {/* Hero with Portal Parting Mechanics */}
       <PortalHero onOpenConsultation={() => handleOpenConsultation()} />
 
-      {/* Featured Works Bento Grid */}
+      {/* Featured Works Bento Grid with Enhanced Cards & Blueprint Trigger */}
       <BentoGrid
         projects={PORTFOLIO_DATA.projects}
         onOpenConsultation={handleOpenConsultation}
+        onOpenBlueprint={() => setBlueprintOpen(true)}
       />
 
       {/* Editorial Services & Capabilities */}
@@ -55,6 +58,13 @@ export default function Home() {
         isOpen={consultationOpen}
         onClose={handleCloseConsultation}
         preSelectedService={selectedService}
+      />
+
+      {/* Enterprise Architecture Blueprint Case Study Modal */}
+      <BlueprintModal
+        isOpen={blueprintOpen}
+        onClose={() => setBlueprintOpen(false)}
+        onOpenConsultation={handleOpenConsultation}
       />
     </main>
   );

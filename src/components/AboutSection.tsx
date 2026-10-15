@@ -2,30 +2,34 @@
 
 import React from "react";
 import { Sparkles, Code2, Cpu, Rocket } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutSection() {
+  const { t, isRTL } = useLanguage();
+  const ab = t.aboutSection;
+
   return (
-    <section id="about" className="py-24 relative bg-noir-900 border-t border-noir-700/60 overflow-hidden">
+    <section
+      id="about"
+      dir={isRTL ? "rtl" : "ltr"}
+      className="py-24 relative bg-noir-900 border-t border-noir-700/60 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left: Philosophy & Bio */}
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-noir-800 border border-noir-700 text-xs font-mono text-champagne uppercase tracking-widest mb-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-noir-850 border border-noir-700 text-xs font-mono text-champagne uppercase tracking-widest mb-4">
               <Sparkles className="w-3.5 h-3.5 text-champagne" />
-              <span>Engineering Philosophy</span>
+              <span>{ab.sectionBadge}</span>
             </div>
 
             <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-bone tracking-tight mb-6">
-              Bridging High-Fashion Aesthetics with High-Performance Code
+              {ab.heading}
             </h2>
 
             <div className="space-y-4 text-bone-muted text-sm sm:text-base leading-relaxed font-light">
-              <p>
-                I operate at the intersection of creative direction and technical systems engineering. In an era where 90% of web projects rely on bloated generic templates, I craft bespoke digital flagships built on Next.js App Router, modern Three.js WebGL physics, and strategic conversion mechanics.
-              </p>
-              <p>
-                Every project I architect—from international fashion storefronts to automotive 3D customizers—is designed to eliminate friction, maximize Average Order Value, and leave a permanent imprint on the user.
-              </p>
+              <p>{ab.p1}</p>
+              <p>{ab.p2}</p>
             </div>
 
             {/* 3 Core Tenets */}
@@ -33,30 +37,30 @@ export default function AboutSection() {
               <div className="p-4 rounded-xl bg-noir-850 border border-noir-700/60">
                 <Code2 className="w-5 h-5 text-champagne mb-2" />
                 <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-bone mb-1">
-                  Zero Bloat
+                  {ab.tenets.zeroBloat.title}
                 </h4>
                 <p className="text-[11px] text-bone-dim leading-normal font-mono">
-                  Clean semantic code, minimal bundle sizes, and sub-second load times.
+                  {ab.tenets.zeroBloat.desc}
                 </p>
               </div>
 
               <div className="p-4 rounded-xl bg-noir-850 border border-noir-700/60">
                 <Cpu className="w-5 h-5 text-cyan-400 mb-2" />
                 <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-bone mb-1">
-                  Tactile Physics
+                  {ab.tenets.tactilePhysics.title}
                 </h4>
                 <p className="text-[11px] text-bone-dim leading-normal font-mono">
-                  Smooth 60 FPS interactions, magnetic curves, and specular lighting.
+                  {ab.tenets.tactilePhysics.desc}
                 </p>
               </div>
 
               <div className="p-4 rounded-xl bg-noir-850 border border-noir-700/60">
                 <Rocket className="w-5 h-5 text-emerald-400 mb-2" />
                 <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-bone mb-1">
-                  Conversion First
+                  {ab.tenets.conversionFirst.title}
                 </h4>
                 <p className="text-[11px] text-bone-dim leading-normal font-mono">
-                  Every button, color swatch, and headline engineered to generate sales.
+                  {ab.tenets.conversionFirst.desc}
                 </p>
               </div>
             </div>
@@ -73,28 +77,35 @@ export default function AboutSection() {
                 </span>
               </div>
 
-              <h3 className="font-serif font-bold text-2xl text-bone mb-1">Mohamed Helmy</h3>
+              <h3 className="font-serif font-bold text-2xl text-bone mb-1">
+                {ab.card.title}
+              </h3>
               <p className="text-xs font-mono text-champagne uppercase tracking-widest mb-6">
-                Creative Technologist & Architect
+                {ab.card.subtitle}
               </p>
 
-              <div className="space-y-3 text-xs font-mono text-bone-muted border-t border-noir-700/60 pt-6 text-left">
+              <div className="space-y-3 text-xs font-mono text-bone-muted border-t border-noir-700/60 pt-6 text-start">
                 <div className="flex justify-between py-1 border-b border-noir-800">
-                  <span className="text-bone-dim">Base Location</span>
-                  <span className="text-bone font-medium">Cairo, Egypt (UTC+3)</span>
+                  <span className="text-bone-dim">{ab.card.baseLocationLabel}</span>
+                  <span className="text-bone font-medium">{ab.card.baseLocationVal}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-noir-800">
-                  <span className="text-bone-dim">Primary Framework</span>
-                  <span className="text-bone font-medium">Next.js 14 / TypeScript</span>
+                  <span className="text-bone-dim">{ab.card.frameworkLabel}</span>
+                  <span className="text-bone font-medium">{ab.card.frameworkVal}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-noir-800">
-                  <span className="text-bone-dim">Direct Contact</span>
-                  <a href="https://wa.me/201090641737" target="_blank" rel="noopener noreferrer" className="text-champagne hover:underline">
+                  <span className="text-bone-dim">{ab.card.directContactLabel}</span>
+                  <a
+                    href="https://wa.me/201090641737"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-champagne hover:underline"
+                  >
                     +20 1090641737
                   </a>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-bone-dim">Official Inquiries</span>
+                  <span className="text-bone-dim">{ab.card.inquiriesLabel}</span>
                   <span className="text-bone font-medium">mohamedalghala@gmail.com</span>
                 </div>
               </div>

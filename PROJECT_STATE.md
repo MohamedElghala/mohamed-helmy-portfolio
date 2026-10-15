@@ -117,3 +117,40 @@ The portfolio has been fully refactored into a high-conversion, cinematic 3D dig
 2. **Vercel Production Link (Optional 1-Click)**:
    - Import `MohamedElghala/mohamed-helmy-portfolio` at [vercel.com/new](https://vercel.com/new).
    - Set framework to Next.js; root deploy is pre-configured and will deploy instantly with 200 OK.
+
+
+---
+
+## 5. Bilingual System (AR/EN), Enhanced Cards & Enterprise Blueprints (Section 42)
+
+### R1. Complete Bilingual Support (Arabic & English) with Instant RTL Switcher
+- **Architecture**:
+  - Implemented `src/context/LanguageContext.tsx` with dedicated dictionaries for English (`en`) and Arabic (`ar`).
+  - Added Google Font `Cairo` (`next/font/google`) in `src/app/layout.tsx` alongside `Playfair_Display`, `Plus_Jakarta_Sans`, and `JetBrains_Mono`.
+  - Tuned `src/app/globals.css` with `[dir="rtl"]` font hierarchy and spacing, ensuring authentic Arabic typography across all headers, cards, and body text.
+  - Implemented sleek language switcher button in `Navbar.tsx` (`AR | EN` / `عربي / EN`) with local state persistence (`localStorage.getItem('mh_portfolio_lang')`).
+  - Automatically synchronizes `document.documentElement.lang` and `document.documentElement.dir`.
+
+### R2. Visual Image Enhancements in BentoGrid Project Cards
+- **Refined Studio Presentation**:
+  - Added studio bezel framing with `border border-white/10 group-hover:border-champagne/40 transition-colors duration-500` and deep shadow `shadow-[0_10px_30px_rgba(0,0,0,0.6)]`.
+  - Added fine specular shading `bg-gradient-to-t from-noir-950 via-noir-950/25 to-transparent` to prevent washing out colors while preserving typography readability.
+  - Interactive smooth hover zoom `group-hover:scale-[1.04] transition-transform duration-700 ease-out`.
+  - Enhanced floating badge pills with frosted glassmorphism and individual brand color luminescence.
+
+### R3. Enterprise Case Study Blueprint (Zero Tool Leaks & Strict Confidentiality)
+- **Executive Framing ("بدون فضح الأدوات أو الطريقة")**:
+  - Completely purged low-level tool names or raw backend script references.
+  - Formulated the entire architecture in enterprise consulting terminology:
+    - **Pillar 1**: Cognitive Narrative & Hook Engineering (هندسة الخطاف الإعلاني والسرد المعرفي) — Micro-retention 0.0s – 2.5s scroll interruption.
+    - **Pillar 2**: Generative Motion Dynamics & Specular Lighting (المحاكاة البصرية الحركية وفيزياء الإضاءة) — Physics-based surface reflection with zero motion distortion.
+    - **Pillar 3**: Neural Acoustic Cadence & Spatial Foley (الهندسة الصوتية الترددية والإيقاع البشري) — Humanized voice cadence with multi-layered studio Foley SFX.
+    - **Pillar 4**: Autonomous Cloud Pipeline & Orchestration (الأتمتة السحابية المتكاملة وإدارة التدفق) — Trigger-to-master render with 0ms human editing latency.
+  - Created interactive full-screen modal component `src/components/BlueprintModal.tsx` accessible directly from the BentoGrid.
+  - Created standalone dedicated route `/blueprint` (`src/app/blueprint/page.tsx`) for direct link sharing.
+  - Integrated visual SVG flow diagram detailing the end-to-end processing pipeline.
+  - One-click WhatsApp consultation launcher prefilled with the inquiry.
+
+### Verification & Build Status
+- `npm run build` executed and passed with exit code 0.
+- All routes compiled cleanly: `/` (23 kB) and `/blueprint` (4.8 kB).

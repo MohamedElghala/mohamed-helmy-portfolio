@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MessageSquare, Mail, Phone, ArrowUp, Check } from "lucide-react";
+import { MessageSquare, Mail, ArrowUp, Check } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface FooterProps {
   onOpenConsultation: () => void;
@@ -10,12 +11,14 @@ interface FooterProps {
 export default function Footer({ onOpenConsultation }: FooterProps) {
   const [cairoTime, setCairoTime] = useState("");
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const { t, isRTL } = useLanguage();
+  const ft = t.footer;
 
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
       setCairoTime(
-        now.toLocaleTimeString("en-US", {
+        now.toLocaleTimeString(isRTL ? "ar-EG" : "en-US", {
           timeZone: "Africa/Cairo",
           hour: "2-digit",
           minute: "2-digit",
@@ -26,7 +29,7 @@ export default function Footer({ onOpenConsultation }: FooterProps) {
     updateTime();
     const interval = setInterval(updateTime, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isRTL]);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("mohamedalghala@gmail.com");
@@ -39,19 +42,23 @@ export default function Footer({ onOpenConsultation }: FooterProps) {
   };
 
   return (
-    <footer id="contact" className="relative bg-noir-950 border-t border-noir-700/60 pt-20 pb-12 overflow-hidden">
+    <footer
+      id="contact"
+      dir={isRTL ? "rtl" : "ltr"}
+      className="relative bg-noir-950 border-t border-noir-700/60 pt-20 pb-12 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Callout */}
-        <div className="rounded-3xl bg-gradient-to-r from-noir-900 via-noir-850 to-noir-900 border border-champagne/30 p-8 sm:p-14 mb-16 relative overflow-hidden text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-8 shadow-2xl">
+        <div className="rounded-3xl bg-gradient-to-r from-noir-900 via-noir-850 to-noir-900 border border-champagne/30 p-8 sm:p-14 mb-16 relative overflow-hidden text-center sm:text-start flex flex-col sm:flex-row items-center justify-between gap-8 shadow-2xl">
           <div className="space-y-2">
             <span className="text-xs font-mono uppercase tracking-[0.25em] text-champagne font-semibold block">
-              Have a Project in Mind?
+              {ft.calloutBadge}
             </span>
             <h3 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-bone">
-              Let&apos;s Build Something Unforgettable.
+              {ft.calloutHeading}
             </h3>
             <p className="text-sm text-bone-muted max-w-xl font-light">
-              Direct developer-to-client consultation. Fast response on WhatsApp and prompt turnarounds.
+              {ft.calloutSub}
             </p>
           </div>
 
@@ -61,15 +68,19 @@ export default function Footer({ onOpenConsultation }: FooterProps) {
               className="w-full sm:w-auto px-7 py-4 rounded-xl bg-champagne hover:bg-champagne-light text-noir-950 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl transition-all"
             >
               <MessageSquare className="w-4 h-4 text-noir-950" />
-              <span>Book Consultation</span>
+              <span>{ft.bookBtn}</span>
             </button>
 
             <button
               onClick={handleCopyEmail}
               className="w-full sm:w-auto px-6 py-4 rounded-xl bg-noir-800 hover:bg-noir-700 border border-noir-700 text-bone font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"
             >
-              {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Mail className="w-4 h-4 text-champagne" />}
-              <span>{copiedEmail ? "Email Copied!" : "Copy Email"}</span>
+              {copiedEmail ? (
+                <Check className="w-4 h-4 text-emerald-400" />
+              ) : (
+                <Mail className="w-4 h-4 text-champagne" />
+              )}
+              <span>{copiedEmail ? ft.copiedToast : ft.copyEmailBtn}</span>
             </button>
           </div>
         </div>
@@ -77,18 +88,18 @@ export default function Footer({ onOpenConsultation }: FooterProps) {
         {/* Large Decorative Wordmark */}
         <div className="py-12 border-b border-noir-800 text-center select-none overflow-hidden">
           <span className="font-serif font-black text-5xl sm:text-8xl md:text-9xl lg:text-[140px] tracking-tighter text-noir-800/80 hover:text-noir-700 transition-colors block">
-            MOHAMED HELMY
+            {isRTL ? "MOHAMED HELMY" : "MOHAMED HELMY"}
           </span>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-bone-dim">
-          <div className="flex items-center gap-4">
-            <span>© 2026 Mohamed Helmy. All rights reserved.</span>
+          <div className="flex flex-wrap items-center gap-4">
+            <span>{ft.allRights}</span>
             <span>•</span>
             <span className="flex items-center gap-1.5 text-bone-muted">
               <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
-              <span>Cairo, EG: {cairoTime || "Live Time"}</span>
+              <span>{ft.cairoTimeLabel} {cairoTime || "Live Time"}</span>
             </span>
           </div>
 
@@ -112,7 +123,7 @@ export default function Footer({ onOpenConsultation }: FooterProps) {
               className="flex items-center gap-1 hover:text-bone transition-colors"
               aria-label="Back to top"
             >
-              <span>Back to Top</span>
+              <span>{ft.backToTop}</span>
               <ArrowUp className="w-3.5 h-3.5" />
             </button>
           </div>

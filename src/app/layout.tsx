@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Playfair_Display, Plus_Jakarta_Sans, JetBrains_Mono, Cairo } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -27,12 +28,19 @@ const monoFont = JetBrains_Mono({
   display: "swap",
 });
 
+const cairoFont = Cairo({
+  subsets: ["arabic", "latin"],
+  variable: "--font-cairo",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Mohamed Helmy — Creative Technologist & Full-Stack Architect",
+  title: "Mohamed Helmy — Creative Technologist & Full-Stack Architect | محمد حلمي",
   description:
     "Portfolio of Mohamed Helmy. Engineering high-conversion digital flagships, luxury e-commerce stores, 3D interactive experiences, and high-impact brand identities.",
   keywords: [
     "Mohamed Helmy",
+    "محمد حلمي",
     "Creative Technologist",
     "Full-Stack Developer",
     "UI/UX Designer",
@@ -46,7 +54,7 @@ export const metadata: Metadata = {
     title: "Mohamed Helmy — Creative Technologist & Full-Stack Architect",
     description:
       "Crafting high-conversion digital flagships, bespoke e-commerce platforms, and cinematic brand identities.",
-    url: "https://mohamed-helmy.vercel.app",
+    url: "https://mohamed-helmy-portfolio-topaz.vercel.app",
     siteName: "Mohamed Helmy Portfolio",
     locale: "en_US",
     type: "website",
@@ -59,10 +67,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${serifFont.variable} ${sansFont.variable} ${monoFont.variable} scroll-smooth`}>
+    <html
+      lang="en"
+      className={`${serifFont.variable} ${sansFont.variable} ${monoFont.variable} ${cairoFont.variable} scroll-smooth`}
+    >
       <body className="bg-noir-900 text-bone antialiased selection:bg-champagne selection:text-noir-950 font-sans min-h-screen">
-        <div className="film-grain" aria-hidden="true" />
-        {children}
+        <LanguageProvider>
+          <div className="film-grain" aria-hidden="true" />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

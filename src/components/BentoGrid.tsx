@@ -12,14 +12,16 @@ import {
   ShieldCheck,
   Video,
   ArrowUpRight,
-  Code2,
   Cpu,
+  FileCode,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface BentoGridProps {
   projects: Project[];
   onOpenConsultation: (projectName?: string) => void;
+  onOpenBlueprint?: () => void;
 }
 
 interface BorderBeamProps {
@@ -79,8 +81,8 @@ function TiltCardContainer({ children, className = "" }: TiltCardContainerProps)
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) / 25;
-    const y = (e.clientY - rect.top - rect.height / 2) / 25;
+    const x = (e.clientX - rect.left - rect.width / 2) / 28;
+    const y = (e.clientY - rect.top - rect.height / 2) / 28;
     setRotate({ x: -y, y: x });
   };
 
@@ -112,19 +114,29 @@ function TiltCardContainer({ children, className = "" }: TiltCardContainerProps)
   );
 }
 
-export default function BentoGrid({ projects, onOpenConsultation }: BentoGridProps) {
+export default function BentoGrid({
+  projects,
+  onOpenConsultation,
+  onOpenBlueprint,
+}: BentoGridProps) {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const { t, isRTL } = useLanguage();
 
   const getIconForCategory = (cat: string) => {
-    if (cat.includes("Luxury") || cat.includes("Fashion")) return <Sparkles className="w-4 h-4 text-champagne" />;
-    if (cat.includes("Automotive") || cat.includes("3D")) return <Box className="w-4 h-4 text-orange-400" />;
-    if (cat.includes("Travel")) return <Globe className="w-4 h-4 text-teal-400" />;
-    if (cat.includes("Digital")) return <ShieldCheck className="w-4 h-4 text-emerald-400" />;
-    if (cat.includes("AI")) return <Cpu className="w-4 h-4 text-cyan-400" />;
+    if (cat.includes("Luxury") || cat.includes("Fashion") || cat.includes("فاخرة") || cat.includes("أزياء"))
+      return <Sparkles className="w-4 h-4 text-champagne" />;
+    if (cat.includes("Automotive") || cat.includes("3D") || cat.includes("سيارات"))
+      return <Box className="w-4 h-4 text-orange-400" />;
+    if (cat.includes("Travel") || cat.includes("سياحة"))
+      return <Globe className="w-4 h-4 text-teal-400" />;
+    if (cat.includes("Digital") || cat.includes("رقمية"))
+      return <ShieldCheck className="w-4 h-4 text-emerald-400" />;
+    if (cat.includes("AI") || cat.includes("ذكاء") || cat.includes("أتمتة"))
+      return <Cpu className="w-4 h-4 text-cyan-400" />;
     return <Layers className="w-4 h-4 text-champagne" />;
   };
 
-  // Specific grid span mapping for balanced 7/5 + 4/4/4 + 12 desktop architecture
+  // Grid spans for balanced desktop layout
   const getGridSpan = (projectId: string, index: number) => {
     switch (projectId) {
       case "brasil-chic":
@@ -145,7 +157,11 @@ export default function BentoGrid({ projects, onOpenConsultation }: BentoGridPro
   };
 
   return (
-    <section id="work" className="py-28 relative bg-noir-950 border-t border-noir-700/60 overflow-hidden">
+    <section
+      id="work"
+      dir={isRTL ? "rtl" : "ltr"}
+      className="py-28 relative bg-noir-950 border-t border-noir-700/60 overflow-hidden"
+    >
       {/* Background ambient lighting */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-champagne/[0.03] rounded-full blur-[160px] pointer-events-none" />
 
@@ -155,39 +171,47 @@ export default function BentoGrid({ projects, onOpenConsultation }: BentoGridPro
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-noir-850/90 border border-noir-700 text-xs font-mono text-champagne uppercase tracking-widest mb-3 backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5 text-champagne" />
-              <span>Selected Works</span>
+              <span>{t.bento.sectionBadge}</span>
             </div>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-bone tracking-tight">
-              Featured Flagships & Digital Universes
+              {t.bento.heading}
             </h2>
             <p className="text-bone-muted text-sm sm:text-base mt-2 max-w-2xl font-light">
-              Each storefront architected with its own distinct visual identity, bespoke typography, and dedicated conversion mechanics.
+              {t.bento.subheading}
             </p>
           </div>
 
-          <div className="text-right hidden md:block">
+          <div className="text-start md:text-end hidden md:block">
             <span className="text-xs font-mono text-bone-dim uppercase tracking-widest block">
-              Curated Index
+              {t.bento.curatedIndex}
             </span>
             <span className="text-sm font-mono text-champagne font-bold">
-              06 Bespoke Deployments
+              {t.bento.deploymentCount}
             </span>
           </div>
         </div>
 
-        {/* 6 Major Projects Bento Grid Container */}
+        {/* 6 Major Projects Bento Grid */}
         <div className="grid grid-cols-12 gap-6 sm:gap-8">
           {projects.map((project, index) => {
             const gridSpan = getGridSpan(project.id, index);
             const isBrasilChic = project.id === "brasil-chic";
             const isCortex = project.id === "ai-content-engine";
 
+            // Localized project data lookup
+            const loc = t.projects[project.id];
+            const title = loc?.title || project.title;
+            const tagline = loc?.tagline || project.tagline;
+            const category = loc?.category || project.category;
+            const description = loc?.description || project.description;
+            const metrics = loc?.metrics || project.metrics;
+
             return (
               <div key={project.id} className={gridSpan}>
                 <TiltCardContainer className="h-full">
                   <div
                     className={cn(
-                      "group relative h-full rounded-2xl bg-noir-900/70 backdrop-blur-xl border border-white/[0.08] hover:border-white/20 transition-all duration-500 overflow-hidden flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_20px_50px_rgba(0,0,0,0.8)]",
+                      "group relative h-full rounded-2xl bg-noir-900/80 backdrop-blur-xl border border-white/[0.08] hover:border-white/20 transition-all duration-500 overflow-hidden flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_20px_50px_rgba(0,0,0,0.8)]",
                       isBrasilChic || isCortex ? "p-6 sm:p-10" : "p-6 sm:p-8"
                     )}
                   >
@@ -211,10 +235,10 @@ export default function BentoGrid({ projects, onOpenConsultation }: BentoGridPro
                       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
                         <div className="flex items-center gap-2">
                           <div className="p-2 rounded-lg bg-noir-800/80 border border-white/[0.06] backdrop-blur-sm">
-                            {getIconForCategory(project.category)}
+                            {getIconForCategory(category)}
                           </div>
                           <span className="text-xs font-mono text-bone-muted uppercase tracking-wider">
-                            {project.category}
+                            {category}
                           </span>
                         </div>
 
@@ -225,40 +249,43 @@ export default function BentoGrid({ projects, onOpenConsultation }: BentoGridPro
                               : "bg-emerald-500/10 text-emerald-300 border-emerald-500/30 font-semibold"
                           }`}
                         >
-                          {project.badge}
+                          {project.status === "coming-soon" ? t.bento.previewBadge : t.bento.liveBadge}
                         </span>
                       </div>
 
-                      {/* Visual Cover Frame (BasePath-Aware with hover parallax zoom) */}
+                      {/* Visual Cover Frame with Studio Bezel & Ambient Lighting */}
                       {project.coverImage && (
                         <div
                           className={cn(
-                            "relative w-full overflow-hidden rounded-xl border border-white/[0.08] mb-6 bg-noir-950 shadow-inner",
+                            "relative w-full overflow-hidden rounded-xl border border-white/10 group-hover:border-champagne/40 transition-colors duration-500 mb-6 bg-noir-950 shadow-[0_10px_30px_rgba(0,0,0,0.6)]",
                             isBrasilChic
                               ? "h-64 sm:h-80"
                               : isCortex
                               ? "h-64 sm:h-80"
-                              : "h-52 sm:h-60"
+                              : "h-52 sm:h-64"
                           )}
                         >
                           <img
                             src={`${basePath}${project.coverImage}`}
-                            alt={project.title}
-                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                            alt={title}
+                            className="w-full h-full object-cover object-center group-hover:scale-[1.04] transition-transform duration-700 ease-out"
                             loading="lazy"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-noir-950 via-noir-950/20 to-transparent opacity-75 group-hover:opacity-40 transition-opacity" />
+                          {/* Rich Graduated Film Shade (preserves image vibrancy) */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-noir-950 via-noir-950/25 to-transparent opacity-80 group-hover:opacity-45 transition-opacity duration-500" />
 
                           {/* Brand Label Floating Overlay */}
                           <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between pointer-events-none">
                             <span
-                              className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider text-bone backdrop-blur-md border border-white/10"
-                              style={{ backgroundColor: `${project.brandColor || "#C8A96A"}33` }}
+                              className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider text-bone backdrop-blur-md border border-white/15 shadow-sm"
+                              style={{ backgroundColor: `${project.brandColor || "#C8A96A"}40` }}
                             >
-                              {project.title}
+                              {title}
                             </span>
-                            <span className="text-[10px] font-mono text-bone/80 backdrop-blur-md px-2 py-0.5 rounded bg-black/50 border border-white/5">
-                              {project.status === "coming-soon" ? "Architecture Preview" : "Live Deployment"}
+                            <span className="text-[10px] font-mono text-bone/90 backdrop-blur-md px-2.5 py-0.5 rounded-md bg-black/60 border border-white/10">
+                              {project.status === "coming-soon"
+                                ? t.bento.previewBadge
+                                : t.bento.liveBadge}
                             </span>
                           </div>
                         </div>
@@ -266,14 +293,14 @@ export default function BentoGrid({ projects, onOpenConsultation }: BentoGridPro
 
                       {/* Title & Tagline */}
                       <h3 className="font-serif font-bold text-2xl sm:text-3xl text-bone group-hover:text-champagne transition-colors mb-2">
-                        {project.title}
+                        {title}
                       </h3>
                       <p className="text-xs font-mono text-champagne/90 tracking-wide uppercase mb-4">
-                        {project.tagline}
+                        {tagline}
                       </p>
 
                       <p className="text-sm text-bone-muted leading-relaxed font-light mb-6">
-                        {project.description}
+                        {description}
                       </p>
 
                       {/* Interactive UI Mockup Snapshot for Brasil Chic */}
@@ -281,57 +308,67 @@ export default function BentoGrid({ projects, onOpenConsultation }: BentoGridPro
                         <div className="mb-6 p-5 rounded-xl bg-noir-950/90 border border-champagne/20 backdrop-blur-sm">
                           <div className="flex items-center justify-between mb-3 text-xs font-mono">
                             <span className="text-bone-muted font-bold tracking-wider">
-                              RESORT 2026 • 100% LINHO PURO
+                              {t.bento.brasilMockup.tag}
                             </span>
                             <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 font-bold border border-emerald-500/30">
-                              5% OFF no Pix
+                              {t.bento.brasilMockup.discount}
                             </span>
                           </div>
                           <div className="flex items-baseline gap-3 mb-3">
                             <span className="font-serif text-2xl sm:text-3xl font-bold text-champagne">
-                              R$ 219,90
+                              {t.bento.brasilMockup.price}
                             </span>
                             <span className="text-xs text-bone-dim font-mono">
-                              ou 12x de R$ 18,32 sem juros
+                              {t.bento.brasilMockup.installments}
                             </span>
                           </div>
                           <div className="p-2.5 rounded-lg bg-noir-900 border border-noir-700 text-[10px] font-mono text-bone-muted overflow-hidden whitespace-nowrap">
-                            <span className="text-champagne font-bold">MARQUEE TICKER:</span>{" "}
-                            COLEÇÃO CARIOCA 2026 • LINHO PURO BRASILEIRO • ALGODÃO PIMA • ENVIO EXPRESSO SEDEX
+                            <span className="text-champagne font-bold">
+                              {t.bento.brasilMockup.tickerLabel}
+                            </span>{" "}
+                            {t.bento.brasilMockup.tickerText}
                           </div>
                         </div>
                       )}
 
-                      {/* Interactive UI Mockup Snapshot for Cortex AI */}
+                      {/* Executive Enterprise Architecture Snapshot for Cortex AI (No Tool Leaks) */}
                       {isCortex && (
-                        <div className="mb-6 p-4 rounded-xl bg-noir-950/90 border border-cyan-500/30 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div className="mb-6 p-5 rounded-xl bg-noir-950/90 border border-cyan-500/30 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4">
                           <div className="flex items-center gap-3">
                             <div className="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
                               <Video className="w-5 h-5 text-cyan-400" />
                             </div>
-                            <div>
+                            <div className="text-start">
                               <span className="text-xs font-mono text-bone font-bold block">
-                                Autonomous 9:16 Video Ad Pipeline
+                                {t.bento.cortexMockup.title}
                               </span>
                               <span className="text-[11px] font-mono text-bone-dim">
-                                Wan 2.1 • LTX-Video • ElevenLabs Voiceover
+                                {t.bento.cortexMockup.subtitle}
                               </span>
                             </div>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-wrap items-center gap-2">
                             <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-noir-800 text-cyan-300 border border-cyan-500/20">
-                              100% Free Cloud Compute
+                              {t.bento.cortexMockup.badge1}
                             </span>
                             <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-noir-800 text-emerald-300 border border-emerald-500/20">
-                              Zero Distortion
+                              {t.bento.cortexMockup.badge2}
                             </span>
+                            {onOpenBlueprint && (
+                              <button
+                                onClick={onOpenBlueprint}
+                                className="text-[10px] font-mono px-3 py-1 rounded bg-champagne hover:bg-champagne-light text-noir-950 font-bold transition-colors shadow-sm"
+                              >
+                                {t.bento.cortexMockup.viewBlueprintBtn}
+                              </button>
+                            )}
                           </div>
                         </div>
                       )}
 
                       {/* Highlights / Metrics Pills */}
                       <div className="flex flex-wrap gap-2 mb-8">
-                        {project.metrics.map((metric, idx) => (
+                        {metrics.map((metric, idx) => (
                           <span
                             key={idx}
                             className="px-2.5 py-1 rounded-md bg-noir-800/80 border border-white/[0.06] text-[11px] font-mono text-bone-dim"
@@ -369,6 +406,16 @@ export default function BentoGrid({ projects, onOpenConsultation }: BentoGridPro
                           </a>
                         )}
 
+                        {isCortex && onOpenBlueprint && (
+                          <button
+                            onClick={onOpenBlueprint}
+                            className="px-3.5 py-2 rounded-lg bg-noir-800 hover:bg-noir-750 text-cyan-300 border border-cyan-500/40 font-mono text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors shadow-sm"
+                          >
+                            <FileCode className="w-3.5 h-3.5 text-cyan-400" />
+                            <span>{t.bento.blueprintBtn}</span>
+                          </button>
+                        )}
+
                         {project.liveUrl ? (
                           <a
                             href={project.liveUrl}
@@ -376,15 +423,15 @@ export default function BentoGrid({ projects, onOpenConsultation }: BentoGridPro
                             rel="noopener noreferrer"
                             className="px-4 py-2 rounded-lg bg-champagne hover:bg-champagne-light text-noir-950 font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md hover:shadow-champagne/20"
                           >
-                            <span>Launch Live</span>
+                            <span>{t.bento.launchBtn}</span>
                             <ExternalLink className="w-3.5 h-3.5" />
                           </a>
                         ) : (
                           <button
-                            onClick={() => onOpenConsultation(project.title)}
+                            onClick={() => onOpenConsultation(title)}
                             className="px-4 py-2 rounded-lg bg-noir-800/90 hover:bg-noir-700 text-bone-muted hover:text-champagne font-mono text-xs uppercase tracking-wider transition-colors border border-champagne/30 flex items-center gap-1.5 shadow-sm"
                           >
-                            <span>Inquire Blueprint</span>
+                            <span>{t.bento.inquireBtn}</span>
                             <ArrowUpRight className="w-3.5 h-3.5 text-champagne" />
                           </button>
                         )}

@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { ArrowDown, MessageSquare, Sparkles, Compass } from "lucide-react";
+import { ArrowDown, MessageSquare, Compass } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Dynamically import 3D WebGL Canvas to prevent SSR hydration mismatches
 const HeroThreeCanvas = dynamic(() => import("./HeroThreeCanvas"), {
@@ -17,6 +18,7 @@ interface PortalHeroProps {
 export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
   const [portalOpen, setPortalOpen] = useState(false);
   const [portalDone, setPortalDone] = useState(false);
+  const { t, isRTL } = useLanguage();
 
   useEffect(() => {
     // Trigger portal parting animation smoothly on mount
@@ -33,7 +35,11 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
   }, []);
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 bg-noir-950">
+    <section
+      id="hero"
+      dir={isRTL ? "rtl" : "ltr"}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 bg-noir-950"
+    >
       {/* Dynamic Background Atmospheric Lighting */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-champagne/8 rounded-full blur-[140px]" />
@@ -58,12 +64,12 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
         >
           <div className="absolute inset-x-0 top-0 h-1/2 bg-noir-950 border-b border-noir-700/50 flex items-end justify-center pb-6">
             <span className="font-mono text-xs text-champagne/60 tracking-[0.3em] uppercase">
-              Entering The Portfolio
+              {t.hero.portalEntering}
             </span>
           </div>
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-noir-950 border-t border-noir-700/50 flex items-start justify-center pt-6">
             <span className="font-mono text-xs text-bone-dim tracking-[0.3em] uppercase">
-              Mohamed Helmy
+              {isRTL ? "محمد حلمي" : "Mohamed Helmy"}
             </span>
           </div>
         </div>
@@ -75,25 +81,25 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-noir-850/80 backdrop-blur-md border border-noir-700/80 mb-8 shadow-inner">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-[11px] font-mono uppercase tracking-widest text-bone-muted">
-            Available for Q4 2026 Contracts
+            {t.hero.badge}
           </span>
           <span className="text-noir-600">•</span>
-          <span className="text-[11px] font-mono text-champagne">Cairo, EG</span>
+          <span className="text-[11px] font-mono text-champagne">{t.hero.location}</span>
         </div>
 
         {/* Cinematic Monolithic Headline */}
         <h1 className="font-serif font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-bone mb-6 leading-[1.05]">
-          Mohamed <span className="italic font-normal text-champagne">Helmy</span>
+          {t.hero.firstName}{" "}
+          <span className="italic font-normal text-champagne">{t.hero.lastName}</span>
         </h1>
 
         {/* Role & Core Value Proposition */}
         <div className="max-w-2xl mx-auto mb-10">
           <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.25em] text-champagne/90 mb-4 font-semibold">
-            Creative Technologist & Full-Stack Architect
+            {t.hero.role}
           </p>
           <p className="text-base sm:text-lg text-bone-muted leading-relaxed font-light">
-            Engineering high-conversion digital flagships, bespoke luxury e-commerce platforms,
-            and cinematic 3D web experiences that elevate brands and drive measurable business growth.
+            {t.hero.description}
           </p>
         </div>
 
@@ -104,7 +110,7 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-champagne hover:bg-champagne-light text-noir-950 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all shadow-xl hover:shadow-champagne/20"
           >
             <Compass className="w-4 h-4 text-noir-950" />
-            <span>Explore Selected Works</span>
+            <span>{t.hero.exploreBtn}</span>
           </a>
 
           <button
@@ -112,42 +118,56 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-noir-850/90 hover:bg-noir-800 border border-noir-700 hover:border-champagne/50 text-bone hover:text-champagne font-mono font-medium text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all backdrop-blur-md"
           >
             <MessageSquare className="w-4 h-4 text-champagne" />
-            <span>Book a Project Consultation</span>
+            <span>{t.hero.bookBtn}</span>
           </button>
         </div>
 
-        {/* Minimal Signature Metrics Strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 pt-8 border-t border-noir-700/60 w-full max-w-4xl text-left">
+        {/* Signature Metrics Strip */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 pt-8 border-t border-noir-700/60 w-full max-w-4xl text-start">
           <div className="p-4 rounded-xl bg-noir-850/60 backdrop-blur-md border border-noir-700/40">
             <span className="block text-[11px] font-mono text-champagne font-semibold tracking-wider uppercase mb-1">
-              Architecture
+              {isRTL ? "المنصات الكبرى" : "Architecture"}
             </span>
-            <span className="block text-sm font-bold text-bone">Next.js 14 App Router</span>
-            <span className="block text-[11px] text-bone-dim font-mono">Ultra-Fast & Stable</span>
+            <span className="block text-sm font-bold text-bone">
+              {t.hero.metrics.flagships.value} {t.hero.metrics.flagships.label}
+            </span>
+            <span className="block text-[11px] text-bone-dim font-mono">
+              {isRTL ? "مشاريع كاملة منشورة" : "Ultra-Fast & Stable"}
+            </span>
           </div>
 
           <div className="p-4 rounded-xl bg-noir-850/60 backdrop-blur-md border border-noir-700/40">
             <span className="block text-[11px] font-mono text-champagne font-semibold tracking-wider uppercase mb-1">
-              Interactive
+              {isRTL ? "الفيزياء التفاعلية" : "Interactive"}
             </span>
             <span className="block text-sm font-bold text-bone">Three.js & WebGL</span>
-            <span className="block text-[11px] text-bone-dim font-mono">Physics & GSAP</span>
+            <span className="block text-[11px] text-bone-dim font-mono">
+              {t.hero.metrics.physics.label}
+            </span>
           </div>
 
           <div className="p-4 rounded-xl bg-noir-850/60 backdrop-blur-md border border-noir-700/40">
             <span className="block text-[11px] font-mono text-champagne font-semibold tracking-wider uppercase mb-1">
-              Commerce
+              {isRTL ? "التجارة الفاخرة" : "Commerce"}
             </span>
-            <span className="block text-sm font-bold text-bone">Luxury CRO Stores</span>
-            <span className="block text-[11px] text-bone-dim font-mono">Headless & Custom</span>
+            <span className="block text-sm font-bold text-bone">
+              {isRTL ? "متاجر هندسة التحويل CRO" : "Luxury CRO Stores"}
+            </span>
+            <span className="block text-[11px] text-bone-dim font-mono">
+              {isRTL ? "مخصصة وبدون قوالب" : "Headless & Custom"}
+            </span>
           </div>
 
           <div className="p-4 rounded-xl bg-noir-850/60 backdrop-blur-md border border-noir-700/40">
             <span className="block text-[11px] font-mono text-champagne font-semibold tracking-wider uppercase mb-1">
-              Automation
+              {isRTL ? "الأتمتة والذكاء" : "Automation"}
             </span>
-            <span className="block text-sm font-bold text-bone">AI Video Pipelines</span>
-            <span className="block text-[11px] text-bone-dim font-mono">9:16 Cloud Commercials</span>
+            <span className="block text-sm font-bold text-bone">
+              {isRTL ? "خط إنتاج الفيديو 9:16" : "AI Video Pipelines"}
+            </span>
+            <span className="block text-[11px] text-bone-dim font-mono">
+              {t.hero.metrics.videoAds.label}
+            </span>
           </div>
         </div>
 
@@ -157,7 +177,9 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
           className="mt-12 text-bone-dim hover:text-champagne transition-colors flex flex-col items-center gap-1.5 focus:outline-none"
           aria-label="Scroll to projects"
         >
-          <span className="text-[10px] font-mono uppercase tracking-widest">Scroll</span>
+          <span className="text-[10px] font-mono uppercase tracking-widest">
+            {isRTL ? "تمرير لأسفل" : "Scroll"}
+          </span>
           <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
         </a>
       </div>

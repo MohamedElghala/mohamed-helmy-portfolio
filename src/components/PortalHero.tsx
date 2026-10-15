@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { ArrowDown, MessageSquare, Sparkles, Compass } from "lucide-react";
+
+// Dynamically import 3D WebGL Canvas to prevent SSR hydration mismatches
+const HeroThreeCanvas = dynamic(() => import("./HeroThreeCanvas"), {
+  ssr: false,
+  loading: () => null,
+});
 
 interface PortalHeroProps {
   onOpenConsultation: () => void;
@@ -26,8 +33,14 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
         <div className="absolute bottom-10 right-1/4 w-[500px] h-[300px] bg-noir-700/20 rounded-full blur-[120px]" />
       </div>
 
+      {/* Interactive 3D WebGL Canvas Engine (Obsidian Torus Knot + Neural Stardust) */}
+      <HeroThreeCanvas className="z-0 opacity-75 hover:opacity-100 transition-opacity duration-700" />
+
+      {/* Vignette Gradient Mask to guarantee typography contrast */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-noir-950/40 via-transparent to-noir-950 z-0" />
+
       {/* Cinematic Frame Border Guidelines (16:9 Letterbox Vibe) */}
-      <div className="absolute inset-x-8 top-24 bottom-12 border border-noir-700/30 rounded-2xl pointer-events-none hidden md:block" />
+      <div className="absolute inset-x-8 top-24 bottom-12 border border-noir-700/30 rounded-2xl pointer-events-none hidden md:block z-10" />
 
       {/* PORTAL SHUTTERS (Superdesign #1: Two panels that part outward) */}
       <div
@@ -48,9 +61,9 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
       </div>
 
       {/* Hero Content Container */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center pointer-events-auto">
         {/* Availability Status Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-noir-850 border border-noir-700/80 mb-8 shadow-inner">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-noir-850/80 backdrop-blur-md border border-noir-700/80 mb-8 shadow-inner">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-[11px] font-mono uppercase tracking-widest text-bone-muted">
             Available for Q4 2026 Contracts
@@ -87,7 +100,7 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
 
           <button
             onClick={onOpenConsultation}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-noir-850 hover:bg-noir-800 border border-noir-700 hover:border-champagne/50 text-bone hover:text-champagne font-mono font-medium text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-noir-850/90 hover:bg-noir-800 border border-noir-700 hover:border-champagne/50 text-bone hover:text-champagne font-mono font-medium text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all backdrop-blur-md"
           >
             <MessageSquare className="w-4 h-4 text-champagne" />
             <span>Book a Project Consultation</span>
@@ -96,7 +109,7 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
 
         {/* Minimal Signature Metrics Strip */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 pt-8 border-t border-noir-700/60 w-full max-w-4xl text-left">
-          <div className="p-4 rounded-xl bg-noir-850/50 border border-noir-700/40">
+          <div className="p-4 rounded-xl bg-noir-850/60 backdrop-blur-md border border-noir-700/40">
             <span className="block text-[11px] font-mono text-champagne font-semibold tracking-wider uppercase mb-1">
               Architecture
             </span>
@@ -104,7 +117,7 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
             <span className="block text-[11px] text-bone-dim font-mono">Ultra-Fast & Stable</span>
           </div>
 
-          <div className="p-4 rounded-xl bg-noir-850/50 border border-noir-700/40">
+          <div className="p-4 rounded-xl bg-noir-850/60 backdrop-blur-md border border-noir-700/40">
             <span className="block text-[11px] font-mono text-champagne font-semibold tracking-wider uppercase mb-1">
               Interactive
             </span>
@@ -112,7 +125,7 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
             <span className="block text-[11px] text-bone-dim font-mono">Physics & GSAP</span>
           </div>
 
-          <div className="p-4 rounded-xl bg-noir-850/50 border border-noir-700/40">
+          <div className="p-4 rounded-xl bg-noir-850/60 backdrop-blur-md border border-noir-700/40">
             <span className="block text-[11px] font-mono text-champagne font-semibold tracking-wider uppercase mb-1">
               Commerce
             </span>
@@ -120,7 +133,7 @@ export default function PortalHero({ onOpenConsultation }: PortalHeroProps) {
             <span className="block text-[11px] text-bone-dim font-mono">Headless & Custom</span>
           </div>
 
-          <div className="p-4 rounded-xl bg-noir-850/50 border border-noir-700/40">
+          <div className="p-4 rounded-xl bg-noir-850/60 backdrop-blur-md border border-noir-700/40">
             <span className="block text-[11px] font-mono text-champagne font-semibold tracking-wider uppercase mb-1">
               Automation
             </span>

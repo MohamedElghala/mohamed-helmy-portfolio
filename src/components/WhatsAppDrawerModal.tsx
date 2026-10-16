@@ -27,6 +27,7 @@ const SERVICE_OPTIONS_EN = [
   "Brand Identity & Ad Creatives",
   "Cinematic 9:16 Video Ads",
   "AI Systems & Automation",
+  "Enterprise ERP & Warehouse Systems",
 ];
 
 const SERVICE_OPTIONS_AR = [
@@ -36,6 +37,7 @@ const SERVICE_OPTIONS_AR = [
   "الهوية البصرية وتصاميم الإعلانات",
   "الفيديو الإعلاني السينمائي 9:16",
   "أنظمة الذكاء الاصطناعي والأتمتة",
+  "أنظمة إدارة المخازن والمؤسسات (ERP)",
 ];
 
 export default function WhatsAppDrawerModal({

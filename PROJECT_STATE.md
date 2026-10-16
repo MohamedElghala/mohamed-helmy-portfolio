@@ -154,3 +154,30 @@ The portfolio has been fully refactored into a high-conversion, cinematic 3D dig
 ### Verification & Build Status
 - `npm run build` executed and passed with exit code 0.
 - All routes compiled cleanly: `/` (23 kB) and `/blueprint` (4.8 kB).
+
+
+---
+
+## 6. Project Visuals Upgrade (Raseen & Aura) & Enterprise ERP/WMS Service (Section 43)
+
+### R1. Photorealistic Visual Generation & Upgrade
+- **Raseen Vault (`/images/raseen_master.jpg`)**:
+  - Generated a bespoke, ultra-luxurious 16:9 monolithic vault visual.
+  - Features the obsidian & gold vault safe embossed with "RASEEN", glowing cryptographic security rings, floating architectural blueprints (luxury villas, BIM models, design prototypes), and ray-traced reflections on dark polished slate.
+  - Successfully replaced the placeholder cover image in `portfolioData.ts`.
+- **AURA Glow Up (`/images/aura_master.jpg`)**:
+  - Generated a hyper-refined commercial studio beauty composition.
+  - Features "AURA Glow Up" embossed in rose-gold on crystal perfume flacons, luxury serum droppers, cosmetic jars, pearls, and fluid ripples on wet dark obsidian with floating golden stardust.
+  - Successfully replaced the previous asset in `portfolioData.ts`.
+
+### R2. Enterprise ERP & Warehouse Management Systems Service (07)
+- **New Capability Added**:
+  - Title: "Enterprise ERP & Warehouse Inventory Systems" / "أنظمة إدارة المؤسسات والمخازن الذكية (ERP & WMS)"
+  - Subtitle: "Custom Cloud ERP, Inventory Tracking & POS Architectures" / "بنية سحابية مخصصة لإدارة المخزون، والمبيعات، والحسابات"
+  - Deliverables: Multi-Warehouse Inventory Ledger, Real-Time Stock Auditing, Barcode/QR Scanning Engine, Custom Enterprise Cloud Dashboard.
+  - Teaser Pill: Included a discreet "Stockly Engine Preview" / "Stockly Engine • قريباً" tag in `ServicesSection.tsx` as a foundational architecture teaser for the upcoming Stockly application.
+  - WhatsApp Drawer Integration: Added the service to `SERVICE_OPTIONS_EN` and `SERVICE_OPTIONS_AR` in `WhatsAppDrawerModal.tsx`.
+
+### R3. Verification & Deployment
+- `npm run build` executed and passed with exit code 0.
+- Zero TypeScript or lint errors.

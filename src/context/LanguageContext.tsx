@@ -459,6 +459,19 @@ export const TRANSLATIONS: Record<Language, Translations> = {
         deliverables: ["Sales Chatbot Integration", "Automated Pipelines", "Webhook Connectors", "Admin Dashboard"],
         timeline: "1-2 Weeks",
       },
+      "erp-warehouse": {
+        title: "Enterprise ERP & Warehouse Inventory Systems",
+        subtitle: "Custom Cloud ERP, Inventory Tracking & POS Architectures",
+        description:
+          "Engineering custom enterprise resource planning (ERP) and warehouse inventory management systems (WMS). Real-time stock movement tracking, multi-branch synchronization, barcode/QR logistics, supplier ledgers, and automated reorder triggers built for extreme data accuracy.",
+        deliverables: [
+          "Multi-Warehouse Inventory Ledger",
+          "Real-Time Stock Auditing",
+          "Barcode/QR Scanning Engine",
+          "Custom Enterprise Cloud Dashboard",
+        ],
+        timeline: "2-4 Weeks",
+      },
     },
   },
   ar: {
@@ -748,6 +761,19 @@ export const TRANSLATIONS: Record<Language, Translations> = {
           "نشر بوتات محادثة ذكية للمبيعات وخدمة العملاء، وخطوط إنتاج ونشر مؤتمتة، وربط خطافات الويب (Webhooks) لإلغاء العمل اليدوي وجمع واستقطاب العملاء على مدار 24 ساعة.",
         deliverables: ["بوت مبيعات ذكي مدمج", "خطوط إنتاج مؤتمتة", "روابط Webhook تكاملية", "لوحة تحكم إدارية"],
         timeline: "1-2 أسبوع",
+      },
+      "erp-warehouse": {
+        title: "أنظمة إدارة المؤسسات والمخازن الذكية (ERP & WMS)",
+        subtitle: "بنية سحابية مخصصة لإدارة المخزون، والمبيعات، والحسابات",
+        description:
+          "هندسة وبناء أنظمة إدارة المؤسسات (ERP) والمخازن والمستودعات الذكية (WMS). تتبع فوري لحركة المخزون، ربط الفروع والمستودعات لحظياً، مسح الباركود وQR اللوجستي، موازين الموردين، وإشعارات تلقائية لنقاط إعادة الطلب مصممة لأقصى درجات الدقة المحاسبية والتشغيلية.",
+        deliverables: [
+          "دفتر أستاذ وجرد متعدد المخازن",
+          "تدقيق وجرد فوري للمخزون",
+          "محرك مسح الباركود وQR",
+          "لوحة تحكم إدارية سحابية مخصصة",
+        ],
+        timeline: "2-4 أسابيع",
       },
     },
   },

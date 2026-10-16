@@ -70,7 +70,7 @@ export const PORTFOLIO_DATA = {
       liveUrl: "https://auraglowup.online",
       badge: "Live Omnichannel",
       status: "live",
-      coverImage: "/images/aura.jpg",
+      coverImage: "/images/aura_master.jpg",
       brandColor: "#F472B6",
     },
     {
@@ -114,7 +114,7 @@ export const PORTFOLIO_DATA = {
       techStack: ["Next.js 15", "PostgreSQL", "Prisma", "Paymob API", "Dynamic PDF-Lib"],
       badge: "Coming Soon • In Development",
       status: "coming-soon",
-      coverImage: "/images/raseen_platform_hero.jpg",
+      coverImage: "/images/raseen_master.jpg",
       brandColor: "#F59E0B",
     },
     {
@@ -193,6 +193,21 @@ export const PORTFOLIO_DATA = {
         "Deploy custom AI sales chatbots, automated publishing pipelines, and CRM webhooks that cut manual overhead and capture leads 24/7.",
       deliverables: ["Sales Chatbot Integration", "Automated Pipelines", "Webhook Connectors", "Admin Dashboard"],
       timeline: "1-2 Weeks",
+    },
+    {
+      id: "erp-warehouse",
+      number: "07",
+      title: "Enterprise ERP & Warehouse Inventory Systems",
+      subtitle: "Custom Cloud ERP, Inventory Tracking & POS Architectures",
+      description:
+        "Engineering custom enterprise resource planning (ERP) and warehouse inventory management systems (WMS). Real-time stock movement tracking, multi-branch synchronization, barcode/QR logistics, supplier ledgers, and automated reorder triggers built for extreme data accuracy.",
+      deliverables: [
+        "Multi-Warehouse Inventory Ledger",
+        "Real-Time Stock Auditing",
+        "Barcode/QR Scanning Engine",
+        "Custom Enterprise Cloud Dashboard",
+      ],
+      timeline: "2-4 Weeks",
     },
   ] as Service[],
 };

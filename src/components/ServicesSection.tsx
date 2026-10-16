@@ -69,9 +69,16 @@ export default function ServicesSection({ services, onOpenConsultation }: Servic
                       <h3 className="font-serif font-bold text-xl sm:text-2xl text-bone group-hover:text-champagne transition-colors mb-1">
                         {title}
                       </h3>
-                      <p className="text-xs font-mono text-bone-dim uppercase tracking-wider">
-                        {subtitle}
-                      </p>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="text-xs font-mono text-bone-dim uppercase tracking-wider">
+                          {subtitle}
+                        </p>
+                        {service.id === "erp-warehouse" && (
+                          <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[10px] font-mono font-semibold">
+                            {isRTL ? "Stockly Engine • قريباً" : "Stockly Engine Preview"}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
 
